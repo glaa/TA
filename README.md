@@ -25,3 +25,7 @@ Desenvolvedores em 2016.2:
 1. Jose Neilton de Barros Melo
 2. Danillo Bion
 3. Edilberto Braz
+
+Desenvolvedores em 2017.1
+
+1. Gleison Alves de Araujo
