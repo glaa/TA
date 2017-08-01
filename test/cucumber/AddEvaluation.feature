@@ -17,9 +17,9 @@ Feature: AddEvaluation
     Given evaluations for every student on the "X" criteria, originated from "Test" and dated from "28/03/2016" are already in the system
     When I want to add a mark to all students to a the "X" criteria, originated from "Test" and dated from "28/03/2016"
     Then all the marks will not be stored in on the "X" criteria's history of each student
-##GUI
-#  Scenario: Add evaluation to all students
-#    Given I see the student "Rodrigo", login "rcac" and the criterion "W"
-#    When I request the system to add the evaluation valued "MANA" in the criterion "W", from "Test", date "28/03/2016"
-#    Then I can see the evaluation valued "MANA" in the criterion "W", from "Test", date "28/03/2016" in the evaluation screen
-#
+#GUI
+  Scenario: Add evaluation to all students
+    Given I see the student "Rodrigo", login "rcac" and the criterion "W"
+    When I request the system to add the evaluation valued "MANA" in the criterion "W", from "Test", date "28/03/2016"
+    Then I can see the evaluation valued "MANA" in the criterion "W", from "Test", in the evaluation screen
+

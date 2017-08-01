@@ -19,10 +19,16 @@ import ta.StudentController
 class EvaluationDataAndOperations{
 
     public static Date formattedDate(String dateInString){
-        def formatter = new SimpleDateFormat("dd/mm/yyyy");
+        def formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date date = formatter.parse(dateInString);
         return date;
     }
+	
+	/*public static String formattedDateLong(String dateInString){
+		Date date = formattedDate(dateInString)
+		String dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss z").format(date)
+		return dateFormat;
+	}*/
 
     /*public static Evaluation findEvaluation(String criterionName, String origin, String dateInString){
         def applicationDate = formattedDate(dateInString)

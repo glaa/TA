@@ -1,10 +1,12 @@
 package steps
 
-import pages.StudentPages.StudentPage
+import pages.StudentPages.*
 import ta.Evaluation
 import ta.Student
 import steps.EvaluationDataAndOperations
 import pages.*
+import pages.CriterionPages.CriterionPage
+import pages.EvaluationPages.EvaluationPage
 this.metaClass.mixin(cucumber.api.groovy.Hooks)
 this.metaClass.mixin(cucumber.api.groovy.EN)
 
@@ -158,8 +160,8 @@ Given(~/^I see the student "([^"]*)", login "([^"]*)" and the criterion "([^"]*)
         studentLoginGlobal = studentLogin;
         studentNameGlobal = studentName;
         page.fillStudentDetails(studentName, studentLogin)
-        page.selectCreateStudent()
-
+        page.selectAddStudent()
+		
         to StudentPage
 
         assert page.confirmStudent(studentName, studentLogin)
@@ -177,31 +179,25 @@ Given(~/^I see the student "([^"]*)", login "([^"]*)" and the criterion "([^"]*)
 }
 
 When(~/^I request the system to add the evaluation valued "([^"]*)" in the criterion "([^"]*)", from "([^"]*)", date "([^"]*)"$/) {
-    String value, criterionName, evaluationOrigin, evaluationDate, studentName, studentLogin ->
+    String value, criterionName, evaluationOrigin, evaluationDate ->
+		Date dateInString = EvaluationDataAndOperations.formattedDate(evaluationDate)
+	
         to AddEvaluationPage
         at AddEvaluationPage
         page.chooseCriterion(criterionName)
         page.chooseValue(value)
         page.chooseOrigin(evaluationOrigin)
-        page.chooseEvaluationDate(evaluationDate)
-        assert page.selectCreateStudent()
+        page.chooseEvaluationDate(dateInString)
+        page.selectAddEvaluation()
 }
 
-Then(~/^I can see the evaluation valued "([^"]*)" in the criterion "([^"]*)", from "([^"]*)", date "([^"]*)" in the evaluation screen$/) {
-    String value, criterionName, evaluationOrigin, evaluationDate ->
-        to StudentPage
-        at StudentPage
-
-        page.selectStudent(studentNameGlobal, studentLoginGlobal)
-
-        to ShowStudentPage
-
-        assert page.confirmStudent(studentName, studentLogin)
-        page.selectCriterion(criterionName)
-
-        to ShowEvaluationByCriterionPage
-
-        assert page.checkForEvaluation(value)
+Then(~/^I can see the evaluation valued "([^"]*)" in the criterion "([^"]*)", from "([^"]*)", in the evaluation screen$/) {
+    String value, criterionName, evaluationOrigin ->
+       
+		to EvaluationPage
+		at EvaluationPage
+		
+		assert page.confirmEvalaution(value,criterionName,evaluationOrigin)
 }
 
 /*

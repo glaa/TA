@@ -25,18 +25,26 @@ class AddEvaluationPage extends Page {
 
     def chooseValue(String value) {
         $("select", name: "value").click()
-        $("select", name: "value").find("option").find{it.value().equals(value)}.click()
+		$("select", name: "value").value(value).click()
+
     }
 
     def chooseEvaluationDate(Date evaluationDate){
-        def day = (evaluationDate.getDay() < 10) ? "0" + evaluationDate.getDay() : evaluationDate.getDay();
-        def date_string = day + '-' + (evaluationDate.getMonth() + 1) + '-' + evaluationDate.getFullYear();
-        $("select", name:"applicationDate").click()
-        $("select", name:"applicationDate").value(date_string)
+		def day = (evaluationDate.getDate())
+		def month =  (evaluationDate.getMonth() + 1)
+		def year = (evaluationDate.getYear() + 1900)
+        $("select", name:"applicationDate_day").click()
+		$("select", name:"applicationDate_day").value(day).click()
+		$("select", name:"applicationDate_month").click()
+		$("select", name:"applicationDate_month").value(month).click()
+		$("select", name:"applicationDate_year").click()
+		$("select", name:"applicationDate_year").value(year).click()
+
     }
     def chooseOrigin(String origin){
         $("select", name:"origin").click()
-        $("select", name: "origin").find("option").find{it.value().equals(origin)}.click()
+		$("select", name: "origin").value(origin).click()
+       // $("select", name: "origin").find("option").find{it.value().equals(origin)}.click()
     }
 
 

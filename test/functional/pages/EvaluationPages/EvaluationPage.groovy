@@ -10,15 +10,15 @@ class EvaluationPage extends Page {
     static url = "/TA/evaluation/index"
 
     static at =  {
-        title ==~ /Evaluation Listagem/
+        title ==~ /Evaluation List/
     }
 
-    boolean confirmEvalaution(String criterionName,String evaluationOrigin,Date evaluationDate) {
+    boolean confirmEvalaution(String value,String criterionName,String evaluationOrigin) {
         boolean r = false
-        boolean findName = $("tr").find("td").has("a",text: criterionName)
-        boolean findLogin = $("tr").has("td",text: evaluationOrigin)
-        boolean findEvaluationDate = $("tr").has("td",text: evaluationDate)
-        if(findName && findLogin && findEvaluationDate){
+		boolean findLogin = $("tr")find("td").has("a",text: evaluationOrigin)
+		boolean findValue = $("tr").has("td",text:value)
+        boolean findName = $("tr").has("td",text: criterionName)
+        if(findLogin && findValue && findName){
             r = true
         }
         return r
