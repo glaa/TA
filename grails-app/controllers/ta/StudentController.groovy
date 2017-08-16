@@ -1,11 +1,12 @@
 package ta
 
-import org.apache.ivy.core.settings.Validatable
+
 
 import java.text.SimpleDateFormat
 import java.lang.*
 import ta.Evaluation
 import ta.EvaluationsByCriterion
+import ta.Report
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -215,8 +216,7 @@ class StudentController {
 	}
 
 	public Student getStudent(String studentLogin){
-		Student studentFound = Student.findByLogin(studentLogin)
-		return studentFound
+		return Student.findByLogin(studentLogin)
 	}
 
 	def create() {
@@ -302,6 +302,20 @@ class StudentController {
 		if (studentInstance == null) {
 			notFound()
 			return
+		}
+		
+		List<Report> reports = Report.findAll()
+		
+		if(!reports.empty) {
+			for(Report report : reports) {
+				if(!report.students.empty) {
+					for(Student student : report.students) {
+						if(student.getLogin().equals(studentInstance.getLogin())) {
+							report.students.remove(studentInstance)
+						}
+					}
+				}
+			}
 		}
 
 		studentInstance.delete flush: true
